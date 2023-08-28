@@ -55,7 +55,7 @@ public class Player extends Entity {
             case "up" -> image = up1;
             case "down" -> image = down1;
             case "left" -> image = left1;
-            case "right" -> image = right2;
+            case "right" -> image = right1;
         }
         g2.drawImage(image, xPosition, yPosition, gamePanel.tileSize, gamePanel.tileSize, null);
     }
@@ -63,10 +63,10 @@ public class Player extends Entity {
     public void getPlayerImage() {
         try {
 
-            up1 = ImageIO.read(getClass().getResourceAsStream("gesler.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("gesler.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("gesler.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("gesler.png"));
+            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler.png"));
+            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler.png"));
+            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler.png"));
+            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler.png"));
 
         } catch (IOException e) {
             e.printStackTrace();

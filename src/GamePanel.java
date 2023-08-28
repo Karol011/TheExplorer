@@ -1,5 +1,6 @@
 package src;
 
+import entity.Entity;
 import entity.Player;
 
 import javax.swing.*;
