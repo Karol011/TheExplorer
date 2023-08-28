@@ -14,5 +14,7 @@ public class TheExplorer {
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+
+        gamePanel.startGameThread();
     }
 }
