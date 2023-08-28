@@ -1,3 +1,5 @@
+package src;
+
 import javax.swing.*;
 
 public class TheExplorer {
@@ -6,7 +8,7 @@ public class TheExplorer {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("TheExplorer");
+        window.setTitle("src.TheExplorer");
 
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
