@@ -63,9 +63,17 @@ public class Player extends Entity {
         g2.fillRect(xPosition, yPosition, gamePanel.tileSize, gamePanel.tileSize);*/
         BufferedImage image = null;
         switch (direction) {
-            case "up" -> image = up1;
-            case "down" -> {
+            case "up" -> {
                 image = up1;
+                if (spriteNum == 1) {
+                    image = up1;
+                }
+                if (spriteNum == 2) {
+                    image = up2;
+                }
+            }
+            case "down" -> {
+                image = down1;
                 if (spriteNum == 1) {
                     image = down1;
                 }
@@ -73,8 +81,24 @@ public class Player extends Entity {
                     image = down2;
                 }
             }
-            case "left" -> image = left1;
-            case "right" -> image = right1;
+            case "right" -> {
+                image = left1;
+                if (spriteNum == 1) {
+                    image = left1;
+                }
+                if (spriteNum == 2) {
+                    image = left2;
+                }
+            }
+            case "left" -> {
+                image = right1;
+                if (spriteNum == 1) {
+                    image = right1;
+                }
+                if (spriteNum == 2) {
+                    image = right2;
+                }
+            }
         }
         g2.drawImage(image, xPosition, yPosition, gamePanel.tileSize, gamePanel.tileSize, null);
     }
@@ -82,11 +106,17 @@ public class Player extends Entity {
     public void getPlayerImage() {
         try {
 
-            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler.png"));
+            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler-up1.png"));
+            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler-up2.png"));
+
             down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler.png"));
             down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler-down2.png"));
-            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler.png"));
-            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler.png"));
+
+            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler-left1.png"));
+            left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gesler-left2.png"));
+
+            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gesler-right1.png"));
+            right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler-right2.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
