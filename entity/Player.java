@@ -45,6 +45,17 @@ public class Player extends Entity {
             direction = "right";
             xPosition += speed;
         }
+        spriteCounter++;
+        if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
+            if (spriteCounter > 12) {
+                if (spriteNum == 1) {
+                    spriteNum = 2;
+                } else if (spriteNum == 2) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
+            }
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -53,7 +64,15 @@ public class Player extends Entity {
         BufferedImage image = null;
         switch (direction) {
             case "up" -> image = up1;
-            case "down" -> image = down1;
+            case "down" -> {
+                image = up1;
+                if (spriteNum == 1) {
+                    image = down1;
+                }
+                if (spriteNum == 2) {
+                    image = down2;
+                }
+            }
             case "left" -> image = left1;
             case "right" -> image = right1;
         }
@@ -65,6 +84,7 @@ public class Player extends Entity {
 
             up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler.png"));
             down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler.png"));
+            down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler-down2.png"));
             left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler.png"));
             right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/gesler.png"));
 
