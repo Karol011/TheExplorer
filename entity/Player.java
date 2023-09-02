@@ -11,6 +11,8 @@ import java.io.IOException;
 public class Player extends Entity {
 
     public static final int DELAY_FOR_SPRITE_ANIMATION = 12;
+    public int screenX = 0;
+    public int screenY = 0;
     GamePanel gamePanel;
     KeyHandler keyHandler;
 
@@ -18,13 +20,16 @@ public class Player extends Entity {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
 
+        screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize/2);
+        screenY = gamePanel.screenHeight / 2- (gamePanel.tileSize/2);
+
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        xPosition = 100;
-        yPosition = 100;
+        worldX = gamePanel.tileSize * 1;
+        worldY = gamePanel.tileSize * 1;
         speed = 4;
         direction = Direction.DOWN;
     }
@@ -33,19 +38,19 @@ public class Player extends Entity {
 
         if (keyHandler.upPressed) {
             direction = Direction.UP;
-            yPosition -= speed;
+            worldY -= speed;
         }
         if (keyHandler.downPressed) {
             direction = Direction.DOWN;
-            yPosition += speed;
+            worldY += speed;
         }
         if (keyHandler.leftPressed) {
             direction = Direction.LEFT;
-            xPosition -= speed;
+            worldX -= speed;
         }
         if (keyHandler.rightPressed) {
             direction = Direction.RIGHT;
-            xPosition += speed;
+            worldX += speed;
         }
         spriteCounter++;
         if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
@@ -102,7 +107,7 @@ public class Player extends Entity {
                 }
             }
         }
-        g2.drawImage(image, xPosition, yPosition, gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 
     public void getPlayerImage() {
