@@ -20,47 +20,58 @@ public class Player extends Entity {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
 
-        screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize/2);
-        screenY = gamePanel.screenHeight / 2- (gamePanel.tileSize/2);
+        solidArea = new Rectangle(8, 16, 32, 32); //We dont want to make player hitboxes take all of the player texture
+
+        screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
+        screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
 
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        worldX = gamePanel.tileSize * 1;
-        worldY = gamePanel.tileSize * 1;
+        worldX = gamePanel.tileSize * 24;
+        worldY = gamePanel.tileSize * 28;
         speed = 4;
         direction = Direction.DOWN;
     }
 
     public void update() {
+        boolean directionKeyPressed = (keyHandler.upPressed || keyHandler.downPressed || keyHandler.leftPressed || keyHandler.rightPressed);
 
-        if (keyHandler.upPressed) {
-            direction = Direction.UP;
-            worldY -= speed;
-        }
-        if (keyHandler.downPressed) {
-            direction = Direction.DOWN;
-            worldY += speed;
-        }
-        if (keyHandler.leftPressed) {
-            direction = Direction.LEFT;
-            worldX -= speed;
-        }
-        if (keyHandler.rightPressed) {
-            direction = Direction.RIGHT;
-            worldX += speed;
-        }
-        spriteCounter++;
-        if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
-            if (spriteCounter > DELAY_FOR_SPRITE_ANIMATION) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
+        if (directionKeyPressed) {
+            if (keyHandler.upPressed) {
+                direction = Direction.UP;
+            } else if (keyHandler.downPressed) {
+                direction = Direction.DOWN;
+            } else if (keyHandler.leftPressed) {
+                direction = Direction.LEFT;
+            } else if (keyHandler.rightPressed) {
+                direction = Direction.RIGHT;
+            }
+
+
+            collisionOn = false;
+            gamePanel.collisionChecker.checkTile(this);
+            //CHECK TILE COLLISION
+            if (collisionOn == false) {
+                switch (direction) {
+                    case UP -> worldY -= speed;
+                    case DOWN -> worldY += speed;
+                    case LEFT -> worldX -= speed;
+                    case RIGHT -> worldX += speed;
                 }
-                spriteCounter = 0;
+            }
+            spriteCounter++;
+            if (directionKeyPressed) {
+                if (spriteCounter > DELAY_FOR_SPRITE_ANIMATION) {
+                    if (spriteNum == 1) {
+                        spriteNum = 2;
+                    } else if (spriteNum == 2) {
+                        spriteNum = 1;
+                    }
+                    spriteCounter = 0;
+                }
             }
         }
     }

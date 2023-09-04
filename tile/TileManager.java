@@ -11,8 +11,8 @@ import java.util.Objects;
 
 public class TileManager {
     GamePanel gp;
-    Tile[] tiles;
-    int[][] mapTileNumber;
+    public Tile[] tiles;
+    public int[][] mapTileNumber;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -26,6 +26,7 @@ public class TileManager {
         try {
             tiles[0] = new Tile();
             tiles[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water.png")));
+            tiles[0].collision = true;
 
             tiles[1] = new Tile();
             tiles[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/sand.png")));
@@ -35,12 +36,16 @@ public class TileManager {
 
             tiles[3] = new Tile();
             tiles[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/wall.png")));
+            tiles[3].collision = true;
+
 
             tiles[4] = new Tile();
             tiles[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/grass.png")));
 
             tiles[5] = new Tile();
             tiles[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/tree.png")));
+            tiles[5].collision = true;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,7 +53,7 @@ public class TileManager {
 
     public void loadMap() {
         try {
-            var inputStream = getClass().getResourceAsStream("/maps/theExplorerMap.txt");
+            var inputStream = getClass().getResourceAsStream("/maps/newMap.txt");
             var bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
             int col = 0;
@@ -59,7 +64,7 @@ public class TileManager {
 
             while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
                 String line = bufferedReader.readLine();
-                numbers = line.split(" ");
+                numbers = line.split("");
                 while (col < gp.maxWorldCol) {
                     number = Integer.parseInt(numbers[col]);
                     mapTileNumber[col][row] = number;
